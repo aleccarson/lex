@@ -1,13 +1,5 @@
-/* 
-	This is the lex.c file for the UCF Fall 2021 Systems Software Project.
-	For HW2, you must implement the function lexeme *lexanalyzer(char *input).
-	You may add as many constants, global variables, and support functions
-	as you desire.
-	
-	If you choose to alter the printing functions or delete list or lex_index, 
-	you MUST make a note of that in you readme file, otherwise you will lose 
-	5 points.
-*/
+// Alec Carson HW 2
+// COP3402 Fall 2021
 
 
 #include <stdlib.h>
@@ -21,6 +13,8 @@
 
 lexeme *list;
 int lex_index;
+int flag == 0;
+int count == 0;
 
 void printlexerror(int type);
 void printtokens();
@@ -28,6 +22,52 @@ void printtokens();
 
 lexeme *lexanalyzer(char *input)
 {
+	// reset the flag as needed
+	if(input != '=')
+		flag == 0;
+
+	// handle leq and geq
+	// <
+	if(input == '<')	{
+		list[count].type == lsssym;
+		flag == 1;
+		count++;
+	}
+
+	// <=
+	if(flag == 1 && input == '=')	{
+		count--;
+		list[count].type == leqsym;
+		count++;
+	}
+
+	// >
+	if(input == '>')	{
+		list[count].type == gtrsym;
+		flag == 2;
+		count++;
+	}
+
+	// >=
+	if(flag == 2 && input == '=')	{
+		count--;
+		list[count].type == geqsym;
+		count++;
+	}
+	
+	// ==
+	if(input == '=' && flag == 0)	{
+		list[i].type == eqlsym;
+	}
+
+	// !=
+	if(input == '!')	{
+		list[i].type == neqsym;
+	}
+
+	// 
+
+
 	return NULL;
 }
 
