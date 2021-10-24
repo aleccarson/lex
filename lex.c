@@ -13,8 +13,13 @@
 
 lexeme *list;
 int lex_index;
+int notFlag == 0;
 int flag == 0;
+int colFlag == 0;
 int count == 0;
+int idHelp == 0;
+
+char idArray[10] = ' ';
 
 void printlexerror(int type);
 void printtokens();
@@ -22,50 +27,112 @@ void printtokens();
 
 lexeme *lexanalyzer(char *input)
 {
-	// reset the flag as needed
-	if(input != '=')
-		flag == 0;
+	//iterate over input
+	for(int i = 0; input[i] != '\0'; i++)	{
 
-	// handle leq and geq
-	// <
-	if(input == '<')	{
-		list[count].type == lsssym;
-		flag == 1;
-		count++;
-	}
+		// identifiers
+		if(isalpha(input[i]))	{
 
-	// <=
-	if(flag == 1 && input == '=')	{
-		count--;
-		list[count].type == leqsym;
-		count++;
-	}
+			if(!isalpha(input[i]) || !isdigit(input[i]))
 
-	// >
-	if(input == '>')	{
-		list[count].type == gtrsym;
-		flag == 2;
-		count++;
-	}
+			for(i; isalpha(input[i]) || isdigit(input[i]) || idHelp != 11; idHelp++)	{
+				idArray[i] == input[i];
 
-	// >=
-	if(flag == 2 && input == '=')	{
-		count--;
-		list[count].type == geqsym;
-		count++;
-	}
-	
-	// ==
-	if(input == '=' && flag == 0)	{
-		list[i].type == eqlsym;
-	}
+				if(idHelp == 11)
+					printlexerror(2);
+			}
 
-	// !=
-	if(input == '!')	{
-		list[i].type == neqsym;
-	}
 
-	// 
+		}
+
+		// basic 1 char tokens
+		if(input[i] == ';')	{
+			list[count].type == semicolonsym;
+			count++;
+		}
+
+		if(input[i] == '.')	{
+			list[count].type == periodsym;
+			count++;
+		}
+
+		if(input[i] == ',')	{
+			list[count].type == commasym;
+			count++;
+		}
+
+		if(input[i] == ')')	{
+			list[count].type == rparensym;
+			count++;
+		}
+
+		if(input[i] == '(')	{
+			list[count].type == lparensym;
+			count++;
+		}
+
+		if(input[i] == '%')	{
+			list[count].type == modsym;
+			count++;
+		}
+
+		if(input[i] == '/')	{
+			list[count].type == divsym;
+			count++;
+		}
+
+		if(input[i] == '*')	{
+			list[count].type == multsym;
+			count++;
+		}
+
+		if(input[i] == '-')	{
+			list[count].type == subsym;
+			count++;
+		}
+		
+		if(input[i] == '+')	{
+			list[count].type == addsym;
+			count++;
+		}
+
+		if(input[i] == '<' && input[i + 1] != '=')	{
+			list[count].type == lsssym;
+			count++;
+		}
+
+		if(input[i] == '>' && input[i + 1] != '=')	{
+			list[count].type == gtrsym;
+			count++;
+		}
+
+		// multi char syms
+		if(input[i] == ':' && input[i + 1] == '=')	{
+			list[count].type == assignsym;
+			count++;
+		}
+
+		if(input[i] == '=' && input[i + 1] == '=')	{
+			list[count].type == eqlsym;
+			count++;
+		}
+
+		if(input[i] == '!' && input[i + 1] == '=')	{
+			list[count].type == neqsym;
+			count++;
+		}
+
+		if(input[i] == '<' && input[i + 1] == '=')	{
+			list[count].type == leqsym;
+			count++;
+		}
+
+		if(input[i] == '>' && input[i + 1] == '=')	{
+			list[count].type == geqsym;
+			count++;
+		}
+
+	}
 
 
 	return NULL;
